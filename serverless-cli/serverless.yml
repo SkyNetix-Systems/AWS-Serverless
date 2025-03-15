@@ -14,3 +14,9 @@ functions:
       - httpApi:
           path: /notes
           method: post
+  updateNote:
+    handler: handler.updateNote
+    events:
+      - httpApi:
+          path: /notes/{id}
+          method: put
