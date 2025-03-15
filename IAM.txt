@@ -1,0 +1,19 @@
+Policy (The Rules)
+------------------
+A JSON document that defines permissions (what actions are allowed or denied).
+Policies are attached to users, groups, or roles to grant specific AWS actions.
+
+Permissions (What You Can Do)
+-----------------------------
+The actual allowed or denied actions on AWS resources.
+Permissions are controlled by policies attached to IAM users, groups, or roles.
+
+Roles (Temporary Permissions)
+-----------------------------
+A set of permissions assigned to an entity (AWS services, users, or applications).
+IAM roles don't require passwords or access keys.
+Instead, AWS services assume roles using temporary security credentials (STS - Security Token Service).
+
+Policy = "You can read files in S3" 📜
+Permission = "You are allowed to do it" ✅
+Role = "EC2 can temporarily assume permissions to access S3" 
