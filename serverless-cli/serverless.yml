@@ -1,0 +1,22 @@
+service: notes-crud-api
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  runtime: nodejs20.x
+
+functions:
+  createNote:
+    handler: handler.createNote
+    events:
+      - httpApi:
+          path: /notes
+          method: post
+  updateNote:
+    handler: handler.updateNote
+    events:
+      - httpApi:
+          path: /notes/{id}
+          method: put
