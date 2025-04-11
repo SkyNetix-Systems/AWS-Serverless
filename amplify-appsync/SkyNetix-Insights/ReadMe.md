@@ -1,1 +1,0 @@
-"SkyNetix-Insights folder" 

@@ -1,0 +1,25 @@
+RCU – Read Capacity Unit
+Each 1 RCU allows:
+
+1 strongly consistent read per second, for items up to 4 KB in size
+
+OR
+
+2 eventually consistent reads per second, for items up to 4 KB
+
+👉 So if you're reading a 6 KB item with strong consistency, it’ll use 2 RCUs per read because it exceeds the 4 KB chunk.
+
+Example: You want to read 100 items per second, each 2 KB in size, eventually consistent:
+
+100 reads × 0.5 RCUs = 50 RCUs
+
+✍️ WCU – Write Capacity Unit
+Each 1 WCU allows:
+
+1 write per second for items up to 1 KB in size
+
+👉 So, if you write an item that’s 2 KB, it takes 2 WCUs per write.
+
+Example: You want to write 100 items per second, each 2 KB in size:
+
+100 writes × 2 WCUs = 200 WCUs
