@@ -1,64 +1,34 @@
-const async = require("async");
-const _ = require("underscore");
-const AWS = require("aws-sdk");
-AWS.config.update({ region: 'us-west-2' });
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
 
-const docClient = new AWS.DynamoDB.DocumentClient();
+const client = new DynamoDBClient({ region: "ap-south-1" });
+const docClient = DynamoDBDocumentClient.from(client);
 
-var startKey = [];
-var results = [];
-var pages = 0;
-async.doWhilst(
-    //iteratee
-    (callback)=>{
-        let params = {
-            TableName: 'td_notes_test',
-            Limit: 3
-        };
+let startKey = undefined;
+let results = [];
+let pages = 0;
 
-        if(!_.isEmpty(startKey)) {
-            params.ExclusiveStartKey = startKey;
-        }
+try {
+  do {
+    const params = {
+      TableName: "td_notes_test",
+      Limit: 3,
+      ...(startKey && { ExclusiveStartKey: startKey }),
+    };
 
-        docClient.scan(params, (err, data)=>{
-            if(err) {
-                console.log(err);
-                callback(err, {});
-            } else {
-                if(typeof data.LastEvaluatedKey !== 'undefined') {
-                    startKey = data.LastEvaluatedKey;
-                } else {
-                    startKey = [];
-                }
+    const data = await docClient.send(new ScanCommand(params));
 
-                if(!_.isEmpty(data.Items)){
-                    results = _.union(results, data.Items);
-                }
-
-                pages++;
-
-                callback(null, results);
-            }
-        });
-    },
-
-    //truth test
-    ()=>{
-        if(_.isEmpty(startKey)) {
-            return false;
-        } else {
-            return true;
-        }
-    },
-
-    //callback
-    (err, data) => {
-        if(err) {
-            console.log(err);
-        } else {
-            console.log(data);
-            console.log("Item Count", data.length);
-            console.log("Pages", pages);
-        }
+    if (data.Items && data.Items.length > 0) {
+      results.push(...data.Items);
     }
-);
+
+    startKey = data.LastEvaluatedKey;
+    pages++;
+  } while (startKey);
+
+  console.log("Scan Results:", results);
+  console.log("Item Count:", results.length);
+  console.log("Pages:", pages);
+} catch (err) {
+  console.error("Error during paginated scan:", err);
+}
