@@ -1,5 +1,6 @@
 {
   "name": "apis-apps",
+  "type": "module",
   "version": "1.0.0",
   "description": "API Gateway, AWS Lambda and other Amazon Web Services!",
   "main": "index.js",
