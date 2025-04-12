@@ -1,25 +1,32 @@
-const AWS = require("aws-sdk");
-AWS.config.update({ region: 'us-west-2' });
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 
-const docClient = new AWS.DynamoDB.DocumentClient();
+// Create the low-level and document clients
+const client = new DynamoDBClient({ region: "ap-south-1" });
+const docClient = DynamoDBDocumentClient.from(client);
 
-docClient.update({
-    TableName: 'td_notes_sdk',
+const updateItem = async () => {
+  const params = {
+    TableName: "td_notes_sdk",
     Key: {
-        user_id: 'ABC',
-        timestamp: 1
+      user_id: "ABC",
+      timestamp: 1,
     },
-    UpdateExpression: 'set #v = #v + :incr',
+    UpdateExpression: "set #v = #v + :incr",
     ExpressionAttributeNames: {
-        '#v': 'views'
+      "#v": "views",
     },
     ExpressionAttributeValues: {
-        ':incr': 1
-    }
-}, (err, data)=> {
-    if(err) {
-        console.log(err);
-    } else {
-        console.log(data);
-    }
-});
+      ":incr": 1,
+    },
+  };
+
+  try {
+    const result = await docClient.send(new UpdateCommand(params));
+    console.log("Update succeeded:", result);
+  } catch (err) {
+    console.error("Update failed:", err);
+  }
+};
+
+updateItem();

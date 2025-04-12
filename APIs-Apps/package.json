@@ -1,0 +1,15 @@
+{
+  "name": "apis-apps",
+  "version": "1.0.0",
+  "description": "API Gateway, AWS Lambda and other Amazon Web Services!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Akhilesh Shende",
+  "license": "ISC",
+  "keywords": [],
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}
