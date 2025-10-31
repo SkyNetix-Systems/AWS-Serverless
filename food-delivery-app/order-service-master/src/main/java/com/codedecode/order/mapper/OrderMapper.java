@@ -1,8 +1,8 @@
-package com.codedecode.order.mapper;
+package com.skynetix.order.mapper;
 
 
-import com.codedecode.order.dto.OrderDTO;
-import com.codedecode.order.entity.Order;
+import com.skynetix.order.dto.OrderDTO;
+import com.skynetix.order.entity.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

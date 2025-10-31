@@ -1,5 +1,5 @@
 /*
-package com.codedecode.order;
+package com.skynetix.order;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

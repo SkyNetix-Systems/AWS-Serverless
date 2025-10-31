@@ -1,8 +1,8 @@
-package com.codedecode.order.controller;
+package com.skynetix.order.controller;
 
-import com.codedecode.order.dto.OrderDTO;
-import com.codedecode.order.dto.OrderDTOFromFE;
-import com.codedecode.order.service.OrderService;
+import com.skynetix.order.dto.OrderDTO;
+import com.skynetix.order.dto.OrderDTOFromFE;
+import com.skynetix.order.service.OrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

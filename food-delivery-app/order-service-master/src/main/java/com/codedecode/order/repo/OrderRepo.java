@@ -1,6 +1,6 @@
-package com.codedecode.order.repo;
+package com.skynetix.order.repo;
 
-import com.codedecode.order.entity.Order;
+import com.skynetix.order.entity.Order;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
